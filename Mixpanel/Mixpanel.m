@@ -27,9 +27,6 @@
 
 #define VERSION @"2.3.6"
 
-#define MIXPANEL_LOG 0
-#define MIXPANEL_DEBUG 0
-
 #ifdef MIXPANEL_LOG
 #define MixpanelLog(...) NSLog(__VA_ARGS__)
 #else
