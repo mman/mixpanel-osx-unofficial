@@ -27,6 +27,9 @@
 
 #define VERSION @"2.3.6"
 
+#define MIXPANEL_LOG 0
+#define MIXPANEL_DEBUG 0
+
 #ifdef MIXPANEL_LOG
 #define MixpanelLog(...) NSLog(__VA_ARGS__)
 #else
@@ -172,7 +175,7 @@ static Mixpanel *sharedInstance = nil;
         }
 #endif
         
-#ifndef TARGET_OS_IPHONE
+#if !TARGET_OS_IPHONE
         [notificationCenter addObserver:self
                                selector:@selector(applicationWillTerminate:)
                                    name:NSApplicationWillTerminateNotification
@@ -297,6 +300,7 @@ static Mixpanel *sharedInstance = nil;
     [properties setValue:VERSION forKey:@"$lib_version"];
     
     [properties setValue:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"$app_version"];
+    [properties setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"$app_release"];
     
     [properties setValue:@"Apple" forKey:@"$manufacturer"];
     [properties setValue:@"Mac OS X" forKey:@"$os"];
